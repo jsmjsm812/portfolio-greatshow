@@ -1345,6 +1345,26 @@ var PROJECTS = {
         '<div><h5>파트너 담당</h5><ul>' +
         '<li>GitHub Issue 단위로 나눠 맡은 나머지 작업 (세부 내역은 저장소의 이슈·커밋 기록에서 확인할 수 있습니다)</li></ul></div></div>' +
         '<p style="font-size:13px;color:var(--text-3);margin-top:12px">이 페이지의 코드 발췌는 모두 제가 직접 작성한 부분입니다.</p>' },
+      { id:'impl', icon:'★', label:'내가 구현한 파트', html:
+        '<p style="font-size:13.5px;color:var(--text-3);margin-bottom:4px">Player · Enemy 전투를 전담했고, 저장 · 화면 · 연출까지 클라이언트 전반을 직접 구현했습니다.</p>' +
+        '<div class="dpanel"><h4>PLAYER COMBAT</h4><div class="dcards">' +
+        '<div><b>캐릭터 컨트롤러</b><span>이동 · 회피(구르기) · 콤보 공격 · 가드 등 소울라이크 조작 전반</span></div>' +
+        '<div><b>Parry System</b><span>0.2초 판정 윈도우 → 적 2.5초 스태거 + 3m 넉백 카운터 사이클</span></div>' +
+        '<div><b>SkillData SO 파이프라인</b><span>5종 스킬 타입(Melee / Projectile / Beam / Buff / Defense) 통합 데이터 구조, 2-Phase Cast, 쿨다운 · 캐스팅 락아웃</span></div>' +
+        '<div><b>Potion · Lock-On</b><span>1키 HP · 2키 MP 포션(음용 중 타 액션 차단), Tab 키 락온 타겟팅</span></div>' +
+        '<div><b>Player Stats</b><span>HP / MP / 스태미나 관리, 가드 시 50% 피해 감소, 피격 · 사망 애니메이션 연동</span></div></div></div>' +
+        '<div class="dpanel"><h4>ENEMY COMBAT &amp; AI</h4><div class="dcards">' +
+        '<div><b>15-state FSM Enemy AI</b><span>가중 랜덤 방어 반응(패리 / 회피 / 가드 / 무반응), 플레이어 행동 감지, HP 페이즈별 AggressionBonus</span></div>' +
+        '<div><b>EnemyWeaponHitBox</b><span>Attack 상태 외 콜라이더 강제 비활성화로 Hit 애니메이션 중 오발 데미지 해결</span></div>' +
+        '<div><b>코드 기반 히트박스 타이밍</b><span>경공격 0.3s / 중공격 0.6s Invoke로 애니메이션 이벤트 불안정성 대체</span></div>' +
+        '<div><b>EnemyStageData SO</b><span>적 스탯 · 패턴 · 페이즈 · 스킬 슬롯을 데이터로 분리, 스테이지 6종 적 구성</span></div>' +
+        '<div><b>보스 · 웨이브</b><span>보스 페이즈 로직, WaveManager(스테이지별 BGM 전환)</span></div></div></div>' +
+        '<div class="dpanel"><h4>PRESENTATION &amp; SYSTEM</h4><div class="dcards">' +
+        '<div><b>JSON 암호화 세이브/로드</b><span>AES 암호화 저장, AudioManager 싱글톤(BGM · SFX 통합)</span></div>' +
+        '<div><b>StoryScene</b><span>타이핑 애니메이션 + TTS 나레이션 연동 컷씬</span></div>' +
+        '<div><b>씬 구조</b><span>TitleScene → ArenaScene → LobbyScene, TitleManager · GameManager · LobbyManager</span></div>' +
+        '<div><b>CombatUI</b><span>HP / MP / 스태미나 바, 적 HP 바, 스킬 방사형 쿨다운, 데미지 팝업, 락온 UI, 포션 카운트</span></div>' +
+        '<div><b>연출</b><span>Cinemachine KillCam, OnAnimatorIK 기반 FootIK</span></div></div></div>' },
       { id:'about', icon:'01', label:'게임 소개', html:
         '<p>플레이어는 적의 공격 모션을 읽고 가드할지 패링할지를 매번 선택합니다. 패링에 성공하면 적이 경직 상태로 넘어가 반격 기회가 열리고, 실패하면 무방비 구간에 그대로 노출됩니다.</p>' +
         '<div class="dcase"><span class="dcase-tag feature">팀장 결정</span><h4>스코프를 "패링 중심 근접 전투 한 판"으로 축소</h4>' +
@@ -1425,7 +1445,10 @@ var PROJECTS = {
         '<div><b>Fishing 홀드 미니게임</b><span>정규화 -1~+1 텐션, 낚싯대 등급 매칭, 어종 18종 · 낚싯대 3종</span></div>' +
         '<div><b>Alchemy 연금술</b><span>Cooking·Potion 2모드, 실시간 딕셔너리 매칭, Cinemachine 카메라 스왑</span></div>' +
         '<div><b>스킬 SO 67종</b><span>데이터 정의·ID 체계·Database 자동 등록 (전투 실행 로직은 팀원 담당)</span></div>' +
-        '<div><b>라이프 아이템 200종+</b><span>씨앗·수확·어종·요리·포션·재료 통합 ID 체계</span></div></div></div>' },
+        '<div><b>라이프 아이템 200종+</b><span>씨앗·수확·어종·요리·포션·재료 통합 ID 체계</span></div>' +
+        '<div><b>자동 등록 · ID 검증</b><span>폴더 스캔 → ID 중복 검증 → Runtime Dictionary O(1) 조회</span></div>' +
+        '<div><b>PlotSaveData</b><span>밭 상태 · 심은 씨앗 · 사이클 시각의 ISO8601 직렬화 필드 구조</span></div>' +
+        '<div><b>연금술 연출</b><span>Cinemachine 카메라 스왑(일반 ↔ 연금술 ↔ 전투 시점), 3D 가마솥 머티리얼 스왑, 캐릭터 애니메이션 트리거 연동</span></div></div></div>' },
       { id:'core', icon:'04', label:'핵심 구현', html:
         '<div class="dcode-wrap"><div class="dcode-file"><b>PlotSaveData.cs</b> · 오프라인 시각 저장/복원 (실제 발췌 · 직접 작성)</div>' +
         '<pre class="dcode">public DateTime GetCycleStartTime()\n{\n    if (string.IsNullOrEmpty(cycleStartTimeISO))\n        return DateTime.MinValue;\n    return DateTime.Parse(cycleStartTimeISO, null,\n        DateTimeStyles.RoundtripKind);\n}\n\npublic void SetCycleStartTime(DateTime time)\n{\n    cycleStartTimeISO = time.ToString(<span class="hl">"o"</span>);  <span class="cm">// ISO8601 라운드트립</span>\n}</pre></div>' +
