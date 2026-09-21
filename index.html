@@ -1336,6 +1336,15 @@ var PROJECTS = {
     intro: '2인 팀이 4주 안에 데모 빌드까지 완성했습니다. 패링·회피 기반 근접 전투 + 웨이브 스테이지(6종) + KillCam 결정타 연출. 게임 기획(컨셉·전투 규칙·스테이지 밸런싱)과 클라이언트 프로그래밍을 전담했고, 팀장으로 4주 마일스톤을 결정했습니다.',
     spec: [['기간','2026.05.28 ~ 06.26 (4주)'],['엔진','Unity 6 · C#'],['팀','2인 · 팀장'],['플랫폼','PC · 스테이지 6종'],['영상','youtu.be/g3t2Uxi8HEQ'],['코드','github.com/jsmjsm812/LAST-GLADIATOR']],
     sections: [
+      { id:'role', icon:'00', label:'내 담당 · 역할 구분', html:
+        '<div class="dsplit">' +
+        '<div><h5>내가 담당</h5><ul>' +
+        '<li><b>게임 기획</b> — 컨셉, 전투 규칙, 스테이지 밸런싱</li>' +
+        '<li><b>클라이언트 프로그래밍</b> — 적 AI(15개 상태 FSM), 패링 0.2초 판정</li>' +
+        '<li><b>팀장</b> — 4주 마일스톤과 스코프 결정</li></ul></div>' +
+        '<div><h5>파트너 담당</h5><ul>' +
+        '<li>GitHub Issue 단위로 나눠 맡은 나머지 작업 (세부 내역은 저장소의 이슈·커밋 기록에서 확인할 수 있습니다)</li></ul></div></div>' +
+        '<p style="font-size:13px;color:var(--text-3);margin-top:12px">이 페이지의 코드 발췌는 모두 제가 직접 작성한 부분입니다.</p>' },
       { id:'about', icon:'01', label:'게임 소개', html:
         '<p>플레이어는 적의 공격 모션을 읽고 가드할지 패링할지를 매번 선택합니다. 패링에 성공하면 적이 경직 상태로 넘어가 반격 기회가 열리고, 실패하면 무방비 구간에 그대로 노출됩니다.</p>' +
         '<div class="dcase"><span class="dcase-tag feature">팀장 결정</span><h4>스코프를 "패링 중심 근접 전투 한 판"으로 축소</h4>' +
@@ -1361,7 +1370,7 @@ var PROJECTS = {
         '<span class="on">Attack ×3</span><span class="on">Block</span><span class="on">Parried</span>' +
         '<span>Hit</span><span>Stun</span><span>Retreat</span><span>Death</span></div></div>' },
       { id:'core', icon:'04', label:'핵심 구현', html:
-        '<div class="dcode-wrap"><div class="dcode-file"><b>EnemyAI.cs</b> · 패링 판정 (0.2s 윈도우 · 실제 발췌)</div>' +
+        '<div class="dcode-wrap"><div class="dcode-file"><b>EnemyAI.cs</b> · 패링 판정 (0.2s 윈도우 · 실제 발췌 · 직접 작성)</div>' +
         '<pre class="dcode">public bool TryParryPlayerAttack()\n{\n    if (!isParrying) return false;\n    isParrying = false;\n    anim.SetTrigger("Parry");\n\n    <span class="cm">// 성공 시 플레이어 넉백 + 경직</span>\n    playerCombat?.OnParriedByEnemy(transform.position);\n\n    Invoke(nameof(PerformCounterAttack), <span class="hl">0.3f</span>);   <span class="cm">// 즉시 반격</span>\n    return true;\n}</pre></div>' +
         '<div class="dwhy"><b>왜 이렇게 했는가</b>판정 창을 0.1초 이하로 좁히면 유저가 성공을 반복하기 어려워 좌절하고, 0.3초 이상으로 넓히면 실수로도 성공해 긴장감이 사라집니다. 소울 시리즈의 판정 창(0.16~0.24초)을 참고해 <b>"연습하면 손에 잡히는" 0.2초</b>로 결정했습니다.</div>' +
         '<div class="dcode-wrap" style="margin-top:18px"><div class="dcode-file"><b>EnemyStageData.asset</b> · 새 적 = 새 파일 하나</div>' +
@@ -1387,6 +1396,18 @@ var PROJECTS = {
     intro: '5인 팀 프로젝트로, 라이프 시스템(파밍·낚시·연금술)과 6속성 턴제 전투가 하나의 루프로 연결됩니다. 세계관·컨셉부터 게임 전체 기획을 맡았고, 실제 구현은 라이프 시스템 파트(IdleFarming·Fishing·Alchemy)와 스킬 SO 67종을 직접 담당했습니다. 전투 규칙(6속성 상성·상태이상)은 제가 설계하고 코드 구현은 팀원이 맡았습니다.',
     spec: [['기간','2026.06.29 ~ 08.14'],['엔진','Unity 6 · C#'],['팀','5인 · 팀장'],['플랫폼','PC · 3D'],['영상','youtu.be/kNYvXD6YcRg'],['코드','github.com/jsmjsm812/WitchChronicle']],
     sections: [
+      { id:'role', icon:'00', label:'내 담당 · 역할 구분', html:
+        '<div class="dsplit">' +
+        '<div><h5>내가 담당</h5><ul>' +
+        '<li><b>세계관 · 게임 전체 기획</b></li>' +
+        '<li><b>전투 규칙 설계</b> — 6속성 상성, 상태이상</li>' +
+        '<li><b>라이프 시스템 구현</b> — IdleFarming · Fishing · Alchemy</li>' +
+        '<li><b>스킬 데이터 67종</b> — 정의, ID 체계, 자동 등록</li>' +
+        '<li><b>팀장</b> — 파일 소유권 규칙, 저장소 이전 결정</li></ul></div>' +
+        '<div><h5>팀원 담당</h5><ul>' +
+        '<li><b>전투 규칙의 코드 구현</b> — 전투 실행 로직</li>' +
+        '<li>위에 적지 않은 나머지 파트</li></ul></div></div>' +
+        '<p style="font-size:13px;color:var(--text-3);margin-top:12px">이 페이지의 코드 발췌(PlotSaveData, Fishing)는 제가 직접 작성한 라이프 시스템 코드입니다.</p>' },
       { id:'about', icon:'01', label:'게임 소개', html:
         '<p>마녀학교를 배경으로 한 라이프 시뮬 RPG입니다. 방치형 파밍 · 낚시 · 연금술 · 전투 규칙 세트가 정상 동작하는 하나의 루프로 이어집니다. 저장/로드 · 인벤 연동 · UI 개선은 다음 스프린트에서 마무리하는 단계입니다.</p>' +
         '<div class="dcase"><span class="dcase-tag feature">팀 리드</span><h4>파일 소유권 규칙을 팀 위키에 정립</h4>' +
@@ -1406,10 +1427,10 @@ var PROJECTS = {
         '<div><b>스킬 SO 67종</b><span>데이터 정의·ID 체계·Database 자동 등록 (전투 실행 로직은 팀원 담당)</span></div>' +
         '<div><b>라이프 아이템 200종+</b><span>씨앗·수확·어종·요리·포션·재료 통합 ID 체계</span></div></div></div>' },
       { id:'core', icon:'04', label:'핵심 구현', html:
-        '<div class="dcode-wrap"><div class="dcode-file"><b>PlotSaveData.cs</b> · 오프라인 시각 저장/복원 (실제 발췌)</div>' +
+        '<div class="dcode-wrap"><div class="dcode-file"><b>PlotSaveData.cs</b> · 오프라인 시각 저장/복원 (실제 발췌 · 직접 작성)</div>' +
         '<pre class="dcode">public DateTime GetCycleStartTime()\n{\n    if (string.IsNullOrEmpty(cycleStartTimeISO))\n        return DateTime.MinValue;\n    return DateTime.Parse(cycleStartTimeISO, null,\n        DateTimeStyles.RoundtripKind);\n}\n\npublic void SetCycleStartTime(DateTime time)\n{\n    cycleStartTimeISO = time.ToString(<span class="hl">"o"</span>);  <span class="cm">// ISO8601 라운드트립</span>\n}</pre></div>' +
         '<div class="dwhy"><b>왜 이렇게 했는가</b>매 프레임 타이머는 앱 강제 종료 · 절전 · 백그라운드 진입 어느 하나에도 안전하지 않습니다. 서버가 없어 서버 시간 참조도 불가능했습니다. <b>"심은 시각만 저장 → 접속 시점 1회 계산"</b>은 세 시나리오를 한 번에 커버하면서 CPU·배터리 부담이 0인 유일한 해법이었습니다. ISO8601 "o" 포맷은 밀리초·시간대까지 무손실 왕복이 표준으로 보장됩니다.</div>' +
-        '<div class="dcode-wrap" style="margin-top:18px"><div class="dcode-file"><b>Fishing.cs</b> · Zone 판정 (실제 발췌)</div>' +
+        '<div class="dcode-wrap" style="margin-top:18px"><div class="dcode-file"><b>Fishing.cs</b> · Zone 판정 (실제 발췌 · 직접 작성)</div>' +
         '<pre class="dcode">private void CheckZone()\n{\n    if (_tensionNormalized &lt; -yellowZoneRadius) {      <span class="cm">// 줄 끊김</span>\n        _leftRedTimer += Time.deltaTime;\n        if (_leftRedTimer &gt;= lineBreakTime)\n            CompleteReeling(false, FailReason.LineBreak);\n    }\n    else if (_tensionNormalized &gt; yellowZoneRadius) {   <span class="cm">// 도망</span>\n        _rightRedTimer += Time.deltaTime;\n        if (_rightRedTimer &gt;= escapeTime)\n            CompleteReeling(false, FailReason.Escape);\n    }\n    else if (Mathf.Abs(_tensionNormalized) &lt;= greenZoneRadius) {\n        _progressFill += progressFillSpeed * Time.deltaTime;\n        if (_progressFill &gt;= 1f)\n            <span class="hl">CompleteReeling(true, FailReason.None)</span>;\n    }\n}</pre></div>' +
         '<div class="dwhy"><b>왜 이렇게 했는가</b>위험 구간 진입 시 즉시 실패가 아니라 <b>타이머 누적</b>으로 처리했습니다. 짧게 스치면 회복 가능, 오래 머무르면 실패 — 즉시 실패 방식은 유저가 "실수 한 번에 다 잃음"으로 느껴 재시도 의욕이 꺾이지만, 스치듯 회복하는 액션을 허용하면 조작 실력이 늘고 있다는 감각을 얻게 됩니다.</div>' },
       { id:'trouble', icon:'06', label:'문제 해결 경험', html:
